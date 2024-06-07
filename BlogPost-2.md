@@ -18,7 +18,13 @@ Interactivity: click on tower sites, build towers, upgrade towers.
 Concept and art:
 
 Map:
+
 ![image](https://github.com/Caticu/GMD-TowerDefense/assets/36474546/17944735-99e3-4f7a-be03-a8966761a545)
+
+
 Monsters:
+
+
+
 ![file](https://github.com/Caticu/GMD-TowerDefense/assets/36474546/ab3eea8d-48f3-4ace-9971-fe1c690b476c)
 ![file (6)](https://github.com/Caticu/GMD-TowerDefense/assets/36474546/8667ef8e-6c1f-43a2-9805-304e905e78ea)
