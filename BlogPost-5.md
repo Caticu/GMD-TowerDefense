@@ -2,11 +2,11 @@ I will continue talking about my progress.
 
 Things are getting tough, as I have a lot of deadlines.
 
-I am giving up on spline I do not understand and know how to use it. I\m reverting back to checkpoint for movement. 
-Because I restructured the code using solid principles, I only have to create a new interface an implementation, then on the wolf object just use those instead. That s very cool.
+I am giving up on spline I do not understand and know how to use it. I am reverting  to checkpoint for movement. 
+Because I restructured the code using solid principles, I only have to create a new interface and implementation, then on the wolf object just use those instead. That's very cool.
 I fixed everything now, wolf and archer work properly right now. 
-I ll look into the bullet component and check if I have to change it as well to follow solid principles.
-I created prefabs for troll, snake and mage tower and aoe tower. 
+I'll look into the bullet component and check if I have to change it as well to follow solid principles.
+I created prefabs for troll, snake and mage tower and Aoe tower. 
 I did the same for bullet types.
 
 ![image](https://github.com/Caticu/GMD-TowerDefense/assets/36474546/fe198926-b05d-41a7-b0e2-493867ccb405)
