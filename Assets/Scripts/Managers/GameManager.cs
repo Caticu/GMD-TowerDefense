@@ -67,7 +67,7 @@ namespace Assets
         public void RestartGame()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("Game"); // Replace "Game" with the name of your game scene
+            SceneManager.LoadScene("Game"); 
         }
     }
 }
