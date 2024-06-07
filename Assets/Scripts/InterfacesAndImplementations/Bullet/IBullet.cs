@@ -27,6 +27,7 @@ namespace Assets.Scripts.InterfacesAndImplementations.Bullet
         public void MoveTowardsTarget();
 
         public BulletInfo GetBulletInfo();
+        void ReturnToPool();
         #endregion Methods
     }
 }

@@ -37,17 +37,19 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterCombat
                 float effectiveMagicDamage = 0f;
                 float totalEffectiveDamage = 0f;
 
-                // Define a ratio for physical and magic damage distribution
-                float physicalDamageRatio = 0.7f; // 70% of damage as physical
-                float magicDamageRatio = 1f - physicalDamageRatio; // rest is magic
+                // ratio for physical and magic damage distribution
+                // 70% of damage as physical
+                float physicalDamageRatio = 0.7f;
+                // rest is magic
+                float magicDamageRatio = 1f - physicalDamageRatio; 
 
-                // Calculate effective physical damage
+                
                 effectivePhysicalDamage = (bulletInfo.Damage * physicalDamageRatio * (100 - monsterStats.Armor)) / 100 + bulletInfo.ArmorPenetration;
 
-                // Calculate effective magic damage
+                
                 effectiveMagicDamage = (bulletInfo.Damage * magicDamageRatio * (100 - monsterStats.MagicResist)) / 100 + bulletInfo.MagicPenetration;
 
-                // Total effective damage is magic dmg and phys dmg
+                // Total effective damage
                 totalEffectiveDamage = effectivePhysicalDamage + effectiveMagicDamage;
 
                 monsterStats.Hp -= totalEffectiveDamage;

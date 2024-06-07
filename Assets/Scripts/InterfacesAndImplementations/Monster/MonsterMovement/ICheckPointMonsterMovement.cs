@@ -11,6 +11,8 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
 {
     public interface ICheckPointMonsterMovement
     {
+        
+        public event Action<GameObject> OnLastCheckpointReached;
         public int PathId { get; set; }
 
         

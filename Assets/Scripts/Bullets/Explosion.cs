@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dictionaries;
+﻿using Assets.ObjectPooling;
+using Assets.Scripts.Dictionaries;
 using Assets.Scripts.InterfacesAndImplementations.Bullet;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Bullets
 
         public BulletSpeed BulletSpeed = BulletSpeed.Instance;
         public BulletInfo BulletInfo = new BulletInfo();
-
+        private ObjectPool explosionPool;
 
         #endregion Properties
         #region Methods
@@ -24,10 +25,22 @@ namespace Assets.Scripts.Bullets
 
         }
 
+        public void SetPool(ObjectPool pool)
+        {
+            explosionPool = pool; 
+        }
+
         // Update is called once per frame
         void Update()
         {
-            MoveTowardsTarget();
+            if (BulletInfo.TargetTranform != null && BulletInfo.TargetTranform.gameObject.activeInHierarchy)
+            {
+                MoveTowardsTarget();
+            }
+            else
+            {
+                HandleMissingTarget();
+            }
         }
 
         public void InitializeBullet(BulletInfo bulletInfo)
@@ -36,7 +49,7 @@ namespace Assets.Scripts.Bullets
             if (BulletSpeed != null && BulletInfo != null)
             {
                 float speed = BulletSpeed.GetBulletSpeed(10);
-                // Set the bullet speed in the BulletInfo
+                // Set the bullet speed
                 BulletInfo.Speed = speed;
             }
             else
@@ -47,19 +60,18 @@ namespace Assets.Scripts.Bullets
 
         public void MoveTowardsTarget()
         {
-            if (BulletInfo.TargetTranform != null)
+            if (BulletInfo.TargetTranform != null && BulletInfo.TargetTranform.gameObject.activeInHierarchy)
             {
-                // Calculate direction towards the target
                 Vector3 targetPosition = BulletInfo.TargetTranform.position;
+                Vector3 direction = targetPosition - transform.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion targetRotation = Quaternion.Euler(0, 0, angle - 90);
 
-                // Calculate the distance between current position and target position
-                float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+                
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, BulletInfo.Speed * Time.deltaTime);
 
-                // Calculate the movement speed based on distance and a maximum speed
-                float movementSpeed = Mathf.Min(distanceToTarget, BulletInfo.Speed * Time.deltaTime);
-
-                // Lerping (interpolating) towards the target position
-                transform.position = Vector3.Lerp(transform.position, targetPosition, movementSpeed / distanceToTarget);
+                //  rotate to the the target
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10); 
             }
         }
 
@@ -67,8 +79,30 @@ namespace Assets.Scripts.Bullets
         {
             return BulletInfo;
         }
-
-
+        private void HandleMissingTarget()
+        {
+            if (explosionPool != null)
+            {
+                gameObject.SetActive(false);
+                explosionPool.Return(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        public void ReturnToPool()
+        {
+            if (explosionPool != null)
+            {
+                gameObject.SetActive(false);
+                explosionPool.Return(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         #endregion Methods
     }
 }

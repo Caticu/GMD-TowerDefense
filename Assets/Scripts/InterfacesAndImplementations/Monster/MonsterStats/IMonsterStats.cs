@@ -16,6 +16,13 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterStats
 
         public string Name { get; set; }
 
+        public int GoldValue { get; set; }
+
         event Action OnHpZeroOrBelow;
+        event Action<int> OnDeath;
+
+        public void SetHealthBar(FloatingHealthBar healthBar);
+        public void Initialize(float hp, float armor, float magicResist, float movementSpeed, bool isAerial, string name, int goldValue);
+        public void Reset();
     }
 }

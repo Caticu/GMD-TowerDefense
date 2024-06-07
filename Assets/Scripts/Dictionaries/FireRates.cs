@@ -41,18 +41,21 @@ namespace Assets.Scripts
             }
         }
 
+        /// <summary>
+        /// get the next fire rate when lvling up the tower
+        /// </summary>
+        /// <param name="currentFireRate"></param>
+        /// <param name="currentAttackTimer"></param>
+        /// <returns></returns>
         public (float, float) GetNextFireRateAndAttackTimer(float currentFireRate, float currentAttackTimer)
         {
             float nextFireRate = float.MaxValue;
             float nextAttackTimer = float.MaxValue;
 
-            // Iterate through the dictionary entries
             foreach (var entry in FireRate)
             {
-                // Check if the fire rate from the dictionary is higher than the current fire rate
                 if (entry.Value.Item1 > currentFireRate)
                 {
-                    // Update nextFireRate and nextAttackTimer if it's the next higher value found so far
                     if (entry.Value.Item1 < nextFireRate)
                     {
                         nextFireRate = entry.Value.Item1;
@@ -61,7 +64,7 @@ namespace Assets.Scripts
                 }
             }
 
-            // If nextFireRate and nextAttackTimer didn t change their values, it means they are at max level, so return the same value. Otherwise return new values
+            // If nextFireRate and nextAttackTimer didn t change their values, it means they are at max level
             
             if (nextFireRate == float.MaxValue && nextAttackTimer == float.MaxValue)
             {

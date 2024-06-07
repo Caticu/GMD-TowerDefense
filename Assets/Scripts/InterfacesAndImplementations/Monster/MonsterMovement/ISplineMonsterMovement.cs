@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
 {
+    /// <summary>
+    /// not used bc it did not work
+    /// </summary>
     public interface ISplineMonsterMovement
     {
         public void Move(GameObject monster, IMonsterStats monsterStats);

@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25317c2b2f15f84d812d8761d0325e1, type: 3}
+  m_Name: SnakePool
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2812446760957862937, guid: 6291f3aa629cd6049915ffb61f292355, type: 3}

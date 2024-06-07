@@ -18,5 +18,7 @@ namespace Assets.Scripts.InterfacesAndImplementations.Tower
         public float MagicPenetration { get; set; }
 
         public string TowerName { get; set; }
+        public int ConstructionGold { get; set; } = 50;
+
     }
 }

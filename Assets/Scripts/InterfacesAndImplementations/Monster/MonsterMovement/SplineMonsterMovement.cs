@@ -43,11 +43,9 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
                 var t = splinePoint.GetComponent<SplineContainer>();
                 foreach (BezierKnot knot in t.Spline.Knots)
                 {
-                    // Create a new game object and set its position to the knot position
+                  
                     GameObject knotGameObject = new GameObject("Knot");
                     knotGameObject.transform.position = knot.Position;
-
-                    // Add the transform of the new game object to the splinePoints list
                     splinePoints.Add(knotGameObject.transform);
                 }
                 Debug.Log("Spline point found");
@@ -62,10 +60,10 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
                 return;
             }
 
-            // Ensure initial position is set to the first spline point
+            
             monster.transform.position = splinePoints[currentSplineIndex].position;
 
-            // Move along the spline
+            
             monoBehaviour.StartCoroutine(SplineMovement(monster,  monsterStats));
         }
 
@@ -73,23 +71,20 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
         {
             while (currentSplineIndex < splinePoints.Count - 1)
             {
-                // Calculate direction towards the next spline point
+              
                 Vector3 nextPosition = splinePoints[currentSplineIndex + 1].position;
                 Vector3 direction = (nextPosition - monster.transform.position).normalized;
 
-                // Move towards the next spline point
+            
                 while (Vector3.Distance(monster.transform.position, nextPosition) > 0.01f)
                 {
                     monster.transform.position += direction * monsterStats.MovementSpeed * Time.deltaTime;
                     yield return null;
                 }
 
-                // Move to the next spline point
+              
                 currentSplineIndex++;
             }
-
-            
-            // TODO CMR : a ajuns la sfarsit, scade viata, etc
         }
     }
 }

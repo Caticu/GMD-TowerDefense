@@ -1,25 +1,33 @@
 ﻿using Assets.Scripts.Bullets;
-using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterCombat;
-using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement;
-using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterStats;
-using Assets.Scripts.InterfacesAndImplementations.Bullet;
+using Assets.Scripts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Assets.Scripts.Old;
+using UnityEngine.Splines;
+using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterCombat;
+using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement;
+using Assets.Scripts.InterfacesAndImplementations.Monster.MonsterStats;
+using Unity.VisualScripting;
+using Assets.Scripts.InterfacesAndImplementations.Bullet;
+using UnityEngine.UI;
+using Assembly_CSharp;
+
 
 namespace Assets.Scripts.Monsters
 {
     public class Troll : MonoBehaviour
     {
-        public IMonsterCombat MonsterCombat { get; private set; }
-        public ICheckPointMonsterMovement MonsterMovement { get; private set; }
-        public IMonsterStats MonsterStats { get; private set; }
-
-        private Transform[] CheckPoints;
-
+        public FloatingHealthBar healthBar;
+        public IMonsterCombat MonsterCombat { get; private set; } = new MonsterCombat();
+        public ICheckPointMonsterMovement MonsterMovement { get; private set; } = new CheckPointMonsterMovement();
+        public IMonsterStats MonsterStats { get; private set; } = new MonsterStats();
+      
+        private Transform[] CheckPoints { get;set; }
+        
 
         void OnTriggerEnter2D(Collider2D collision)
         {
@@ -32,8 +40,8 @@ namespace Assets.Scripts.Monsters
                 // Deal damage to the monster using the BulletInfo
                 MonsterCombat.TakeDamage(bulletInfo, MonsterStats);
 
-                // Destroy the bullet after hitting the monster
-                Destroy(collision.gameObject);
+                // Return the bullet to the pool 
+                bullet.ReturnToPool();
             }
         }
         /// <summary>
@@ -41,23 +49,18 @@ namespace Assets.Scripts.Monsters
         /// </summary>
         void Start()
         {
-
+            
         }
-        public void InitializeTroll(IMonsterCombat monsterCombat, ICheckPointMonsterMovement monsterMovement, IMonsterStats monsterStats, int PathId)
+        public Troll InitializeWolf(IMonsterCombat monsterCombat, ICheckPointMonsterMovement monsterMovement, IMonsterStats monsterStats, int PathId)
         {
             MonsterCombat = monsterCombat;
             MonsterMovement = monsterMovement;
             MonsterStats = monsterStats;
-
-            MonsterStats.Hp = 150;
-            MonsterStats.Armor = 50;
-            MonsterStats.MagicResist = 10;
-            MonsterStats.MovementSpeed = 30;
-            MonsterStats.IsAerial = false;
-            MonsterStats.Name = this.name.ToUpper();
-
+            MonsterStats.Initialize(100, 30, 20, 50, false, this.name.ToUpper(), 10);
+            MonsterStats.SetHealthBar(healthBar);
             CheckPoints = MonsterMovement.FindCheckPoints(PathId);
 
+            return this;
         }
 
 

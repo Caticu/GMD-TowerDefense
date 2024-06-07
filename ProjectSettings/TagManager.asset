@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - CheckPoint
   - Spline
+  - TowerSite
+  - VirtualMouse
   layers:
   - Default
   - TransparentFX

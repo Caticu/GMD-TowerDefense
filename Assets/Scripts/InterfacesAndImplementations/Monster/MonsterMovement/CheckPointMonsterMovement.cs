@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.InterfacesAndImplementations.Monster;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,10 +10,17 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
 {
     public class CheckPointMonsterMovement : ICheckPointMonsterMovement
     {
+       
+       
         public int PathId { get; set; }
 
         private Transform[] CheckPoints;
-        private int CurrentCheckPointIndex { get; set; }
+
+        public event Action<GameObject> OnLastCheckpointReached;
+
+        private int CurrentCheckPointIndex;
+
+        
 
         public void MoveTowardsCheckPoint(GameObject gameObject, float movementSpeed, Transform[] checkPoint)
         {
@@ -35,7 +43,8 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
                     // Check if it got to the last checkpoint
                     if (CurrentCheckPointIndex + CheckPoints.Length == CheckPoints.Length)
                     {
-                       //
+                        OnLastCheckpointReached?.Invoke(gameObject);
+                        CurrentCheckPointIndex = 0; 
                     }
                 }
 
@@ -68,7 +77,7 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
 
         private float GetSubIndexFromName(string name)
         {
-            string[] parts = name.Split('.'); // Split the name by . 
+            string[] parts = name.Split('.'); 
             if (parts.Length == 2)
             {
                 float subIndex;
@@ -77,7 +86,7 @@ namespace Assets.Scripts.InterfacesAndImplementations.Monster.MonsterMovement
                     return subIndex;
                 }
             }
-            return float.MaxValue; // Return a big value to make sure that wrong checkpoints are placed in the end
+            return float.MaxValue;
         }
 
        

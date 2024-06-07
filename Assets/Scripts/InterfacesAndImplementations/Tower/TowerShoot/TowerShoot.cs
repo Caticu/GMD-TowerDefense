@@ -10,13 +10,21 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Assets.Scripts.InterfacesAndImplementations.Tower
 {
+    
     public class TowerShoot : ITowerShoot
     {
         public void SpawnBullet(UnityEngine.Transform spawnTransform, UnityEngine.Transform target, GameObject BulletPrefab, ITowerStats towerStats)
         {
             if (BulletPrefab != null)
             {
-                GameObject bulletGameObject = GameObject.Instantiate(BulletPrefab, spawnTransform.position, Quaternion.identity);
+                // Calculate the initial rotation to face the target
+                Vector3 directionToTarget = target.position - spawnTransform.position;
+                float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+                // adjust with -90 = i noticed this is best optionb right now
+                Quaternion initialRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); 
+
+                // Instantiate the bullet
+                GameObject bulletGameObject = GameObject.Instantiate(BulletPrefab, spawnTransform.position, initialRotation);
 
                 // Check if the instantiated bullet has IBullet component
                 IBullet bullet = bulletGameObject.GetComponent<IBullet>();
@@ -30,7 +38,8 @@ namespace Assets.Scripts.InterfacesAndImplementations.Tower
                         ArmorPenetration = towerStats.ArmorPenetration,
                         MagicPenetration = towerStats.MagicPenetration,
                         TowerName = towerStats.TowerName,
-                        TargetTranform = target
+                        TargetTranform = target,
+                        
                     });
                 }
                 else
@@ -43,5 +52,6 @@ namespace Assets.Scripts.InterfacesAndImplementations.Tower
                 Debug.LogError("Bullet prefab is null.");
             }
         }
+
     }
 }
