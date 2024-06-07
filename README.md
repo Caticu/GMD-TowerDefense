@@ -3,6 +3,7 @@
 This is my game for GMD course.
 
 Link to blog posts:
+
 [Blog-1](https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-1.md)
 
 [Blog-2](https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-2.md)
