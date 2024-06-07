@@ -3,7 +3,7 @@
 This is my game for GMD course.
 
 Link to blog posts:
-[Blog-1](([URL]https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-1.md))
+[Blog-1](https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-1.md)
 [Blog-2](([URL]https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-2.md))
 [Blog-3](([URL]https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-3.md))
 [Blog-4]([URL](https://github.com/Caticu/GMD-TowerDefense/blob/main/BlogPost-4.md))
